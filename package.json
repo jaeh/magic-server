@@ -1,0 +1,18 @@
+{
+  "name": "magic-server",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "~4.9.0",
+    "express-magic": "express-magic/express-magic",
+    "jade": "^1.7.0",
+    "magic-wizard": "express-magic/magic-wizard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/express-magic/magic-server.git"
+  }
+}
