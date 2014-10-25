@@ -1,0 +1,17 @@
+{
+  "name": "magic-localhost",
+  "version": "0.0.1",
+  "private": true,
+  "main"   : "./H.js",
+  "config" : {
+    "hosts"  : {
+      "development": [
+        "localhost",
+        "development"
+      ],
+      "production": [
+        "production"
+      ]
+    }
+  }
+}
