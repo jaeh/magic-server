@@ -1,3 +1,3 @@
 #!/bin/bash
 
-supervisor app.js
+supervisor --harmony --extensions "node,js,jade,styl" app.js

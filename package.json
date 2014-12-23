@@ -6,10 +6,10 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "~4.9.0",
+    "express": "^4.9.8",
     "express-magic": "express-magic/express-magic",
     "jade": "^1.7.0",
-    "magic-wizard": "express-magic/magic-wizard"
+    "magic-wizard": "git+https://github.com/express-magic/magic-wizard"
   },
   "repository": {
     "type": "git",
