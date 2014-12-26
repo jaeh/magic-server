@@ -20,7 +20,7 @@ module.exports = {
       remote: "production"
     , staging: "staging"
   }
-  /*, mail: 'mail@mail.mail'
+  , mail: 'mail@mail.mail'
   , mailTransport: {
       host: 'localhost'
     , port: 465
@@ -29,5 +29,5 @@ module.exports = {
         user: 'username'
       , pass: 'password'
     }
-  }*/
+  }
 }
