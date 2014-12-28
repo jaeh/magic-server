@@ -4,16 +4,16 @@ var path = require('path');
 module.exports = {
   defaults: {
     development: {
-      host: "http://jaeh:80/404"
-    , PORT: 80
+      host: "http://jaeh/404"
+    , PORT: 5000
     }
   , production: {
       host: "https://jaeh.at/404"
-    , PORT: 80
+    , PORT: 5000
     }
   , staging: {
       host: "https://staging.jaeh.at/404"
-    , PORT: 80
+    , PORT: 5000
     }
   }
   , heroku: {
