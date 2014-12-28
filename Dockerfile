@@ -11,4 +11,4 @@ RUN npm i -g supervisor
 ADD ./server /srv
 RUN cd /srv; npm install
 EXPOSE  5000
-CMD cd /srv; supervisor --harmony --extensions "node,js,jade,styl" app.js
+CMD cd /srv; ./dev.sh
