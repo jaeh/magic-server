@@ -4,15 +4,15 @@ var path = require('path');
 module.exports = {
   defaults: {
     development: {
-      host: "http://localhost:80"
+      host: "http://jaeh:80/404"
     , PORT: 80
     }
   , production: {
-      host: "https://production.com"
+      host: "https://jaeh.at/404"
     , PORT: 80
     }
   , staging: {
-      host: "https://staging.production.com"
+      host: "https://staging.jaeh.at/404"
     , PORT: 80
     }
   }

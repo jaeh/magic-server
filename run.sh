@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run -p 5000:5000 -d jaeh/magic-server
+docker run -p 80:5000 -d jaeh/magic-server
