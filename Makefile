@@ -13,17 +13,7 @@ stageiport:=5000
 stagename:='staging.jaeh.at'
 stagetag:='jaeh/magic-server-staging'
 
-host-install:
-	git clone https://github.com/jaeh/jaeh.at.git ./server/hosts/jaeh.at
-	git clone https://github.com/jaeh/bwb.is.git ./server/hosts/bwb.is
 
-host-update:
-	cd ./server/hosts/jaeh.at/ && git pull
-	cd ./server/hosts/bwb.is/ && git pull
-	git pull
-
-host-remove:
-	rm ./server/hosts/* -rf
 
 build:
 	docker build -t magic/base ./dockerbase/
@@ -31,6 +21,9 @@ build:
 	sed -i 's/|env|/$(env)/g' ./Dockerfile
 	sed -i 's/|xport|/${xport}/g' ./Dockerfile
 	docker build -t $(tag) --no-cache .
+
+all:
+	build;
 
 dev:
 	docker build -t magic/base ./dockerbase/
@@ -81,5 +74,15 @@ logs-stage:
 clearImageCache:
 	docker rm $(shell docker ps -a -q)
 
-all:
-	build;
+
+host-install:
+	git clone https://github.com/jaeh/jaeh.at.git ./server/hosts/jaeh.at
+	git clone https://github.com/jaeh/bwb.is.git ./server/hosts/bwb.is
+
+host-update:
+	cd ./server/hosts/jaeh.at/ && git pull
+	cd ./server/hosts/bwb.is/ && git pull
+	git pull
+
+host-remove:
+	rm ./server/hosts/* -rf
