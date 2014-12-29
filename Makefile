@@ -73,23 +73,32 @@ logs-stage:
 clearImageCache:
 	docker rm $(shell docker ps -a -q)
 
+install:
+	npm install
+
+update:
+	git pull
 
 magic-install:
 	cd ./server/ && npm install
 
 magic-update:
-	cd ./server/ && npm update
+	cd ./server/ && npm update --save
 
 host-install:
 	git --depth=1 clone https://github.com/jaeh/jaeh.at.git ./server/hosts/jaeh.at
 	git --depth=1 clone https://github.com/jaeh/bwb.is.git ./server/hosts/bwb.is
 	git --depth=1 clone https://github.com/jaeh/oj.jaeh.at.git ./server/hosts/oj.jaeh.at
+	git --depth=1 clone https://github.com/jaeh/oj-staging.jaeh.at.git ./server/hosts/oliverjiszda.jaeh.at
 
 host-update:
 	cd ./server/hosts/jaeh.at/ && git pull
 	cd ./server/hosts/bwb.is/ && git pull
 	cd ./server/hosts/oj.jaeh.at/ && git pull
-	git pull
+	cd ./server/hosts/oliverjiszda.jaeh.at/ && git pull
 
 host-remove:
-	rm ./server/hosts/* -rf
+	rm ./server/hosts/jaeh.at -rf
+	rm ./server/hosts/bwb.is -rf
+	rm ./server/hosts/oj.jaeh.at -rf
+	rm ./server/hosts/oliverjiszda.jaeh.at -rf
