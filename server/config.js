@@ -12,7 +12,7 @@ module.exports = {
     , PORT: 5000
     }
   , staging: {
-      host: "https://staging.jaeh.at/404"
+      host: "https://jaeh.at:8080/404"
     , PORT: 5000
     }
   }
