@@ -12,13 +12,9 @@ module.exports = {
     , PORT: 5000
     }
   , staging: {
-      host: "https://jaeh.at:8080/404"
+      host: "https://jaeh.at:5000/404"
     , PORT: 5000
     }
-  }
-  , heroku: {
-      remote: "production"
-    , staging: "staging"
   }
   , mail: 'mail@mail.mail'
   , mailTransport: {
