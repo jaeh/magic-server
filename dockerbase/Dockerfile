@@ -7,6 +7,3 @@ RUN apt-get update
 RUN apt-get install -y nodejs
 RUN apt-get install -y git
 RUN npm i -g supervisor
-
-ADD ./server /srv
-RUN cd /srv; npm install
