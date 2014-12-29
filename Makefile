@@ -20,6 +20,9 @@ kill:
 run:
 	docker run -p $(p) --name=$(n) -d $(d) 
 
+logs:
+	docker logs $(n)
+
 restart:
 	docker kill $(n)
 	docker rm $(n)
