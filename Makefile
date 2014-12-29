@@ -74,6 +74,9 @@ clearImageCache:
 	docker rm $(shell docker ps -a -q)
 
 
+magic-install:
+	cd ./server/ && npm install
+
 host-install:
 	git clone https://github.com/jaeh/jaeh.at.git ./server/hosts/jaeh.at
 	git clone https://github.com/jaeh/bwb.is.git ./server/hosts/bwb.is
