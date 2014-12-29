@@ -78,9 +78,9 @@ magic-install:
 	cd ./server/ && npm install
 
 host-install:
-	git clone https://github.com/jaeh/jaeh.at.git ./server/hosts/jaeh.at
-	git clone https://github.com/jaeh/bwb.is.git ./server/hosts/bwb.is
-	git clone https://github.com/jaeh/oj.jaeh.at.git ./server/hosts/oj.jaeh.at
+	git --depth=1 clone https://github.com/jaeh/jaeh.at.git ./server/hosts/jaeh.at
+	git --depth=1 clone https://github.com/jaeh/bwb.is.git ./server/hosts/bwb.is
+	git --depth=1 clone https://github.com/jaeh/oj.jaeh.at.git ./server/hosts/oj.jaeh.at
 
 host-update:
 	cd ./server/hosts/jaeh.at/ && git pull
