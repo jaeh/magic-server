@@ -7,7 +7,7 @@ n:='magic'
 build:
 	docker build -t $(d) .
 
-clean:
+kill:
 	docker kill $(n)
 	docker rm $(n)
 
