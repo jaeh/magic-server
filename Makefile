@@ -14,7 +14,6 @@ stagename:='staging.jaeh.at'
 stagetag:='jaeh/magic-server-staging'
 
 
-
 build:
 	docker build -t magic/base ./dockerbase/
 	cp -f ./Dockerfile.tmpl ./Dockerfile
