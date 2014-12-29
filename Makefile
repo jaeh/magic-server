@@ -77,6 +77,9 @@ clearImageCache:
 magic-install:
 	cd ./server/ && npm install
 
+magic-update:
+	cd ./server/ && npm update
+
 host-install:
 	git --depth=1 clone https://github.com/jaeh/jaeh.at.git ./server/hosts/jaeh.at
 	git --depth=1 clone https://github.com/jaeh/bwb.is.git ./server/hosts/bwb.is
