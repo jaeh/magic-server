@@ -8,10 +8,22 @@ name:='jaeh.at'
 #node_env
 env:='production'
 
-stagexport:=8080
+stagexport:=80
 stageiport:=5000
 stagename:='staging.jaeh.at'
 stagetag:='jaeh/magic-server-staging'
+
+host-install:
+	git clone https://github.com/jaeh/jaeh.at.git ./server/hosts/jaeh.at
+	git clone https://github.com/jaeh/bwb.is.git ./server/hosts/bwb.is
+
+host-update:
+	cd ./server/hosts/jaeh.at/ && git pull
+	cd ./server/hosts/bwb.is/ && git pull
+	git pull
+
+host-remove:
+	rm ./server/hosts/* -rf
 
 build:
 	docker build -t magic/base ./dockerbase/
