@@ -102,3 +102,8 @@ host-remove:
 	rm ./server/hosts/bwb.is -rf
 	rm ./server/hosts/oliverjiszda.com -rf
 	rm ./server/hosts/staging.oliverjiszda.com -rf
+
+
+browserify:
+	cd ./server/hosts/jaeh.at/public/js \
+	&& browserify --ignore-missing ./bundle/index.js > ./main.js
