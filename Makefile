@@ -84,7 +84,7 @@ host-remove:
 	rm ./server/hosts/staging.oliverjiszda.com -rf
 
 updateAll: \
-	update \ 
+	update \
 	magic-update \ 
 	host-update
 
