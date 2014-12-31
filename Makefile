@@ -8,10 +8,14 @@ name:='jaeh.at'
 #node_env
 env:='production'
 
-stagexport:=80
-stageiport:=5000
-stagename:='staging.jaeh.at'
-stagetag:='jaeh/magic-server-staging'
+.PHONY: browserify build dev kill run restart re logs \
+	clearContainers clearImages \
+
+browserify:
+	cd ./server/hosts/jaeh.at/public/ \
+	&& browserify --ignore-missing ./js/bundle/index.js > ./js/main.js
+	cd ./server/hosts/staging.oliverjiszda.com/public/ \
+	&& browserify --ignore-missing ./js/bundle/index.js > ./js/main.js
 
 
 build:
@@ -21,10 +25,7 @@ build:
 	sed -i 's/|xport|/${xport}/g' ./Dockerfile
 	docker build -t $(tag) --no-cache .
 
-all:
-	build;
-
-dev:
+dev: browserify
 	docker build -t magic/base ./dockerbase/
 	cp -f ./Dockerfile.tmpl ./Dockerfile
 	sed -i 's/|env|/development/g' ./Dockerfile
@@ -39,39 +40,18 @@ kill:
 run:
 	docker run -p $(xport):$(iport) --name=$(name) -d $(tag) 
 
-restart:
-	docker kill $(name)
-	docker rm $(name)
-	docker run -p $(stagexport):$(stageiport) --name=$(name) -d $(tag) 
+restart: kill run
+
+re: restart
 
 logs:
 	docker logs $(name)
 
-build-stage:
-	docker build -t magic/base ./dockerbase/
-	cp -f ./Dockerfile.tmpl ./Dockerfile
-	sed -i 's/|env|/staging/g' ./Dockerfile
-	sed -i 's/|xport|/${stagexport}/g' ./Dockerfile
-	docker build -t $(stagetag) --no-cache .
-
-run-stage:
-	docker run -p $(stageport) --name=$(stagename) -d $(stagetag)
-
-restart-stage:
-	docker kill $(stagename)
-	docker rm $(stagename)
-	docker run -p $(stagexport):$(stageiport) --name=$(stagename) -d $(stagetag)
-
-make kill-stage:
-	docker kill $(stagename)
-	docker rm $(stagename)
-	rm -f ./Dockerfile
-
-logs-stage:
-	docker logs $(stagename)
-
-clearImageCache:
+clearContainers:
 	docker rm $(shell docker ps -a -q)
+
+clearImages:
+	docker rmi $(shell docker images -q)
 
 install:
 	npm install
@@ -103,7 +83,10 @@ host-remove:
 	rm ./server/hosts/oliverjiszda.com -rf
 	rm ./server/hosts/staging.oliverjiszda.com -rf
 
+updateAll: \
+	update \ 
+	magic-update \ 
+	host-update
 
-browserify:
-	cd ./server/hosts/jaeh.at/public/js \
-	&& browserify --ignore-missing ./bundle/index.js > ./main.js
+all:
+	build;
