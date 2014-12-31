@@ -78,7 +78,7 @@ host-remove:
 
 updateAll: \
 	update \
-	magic-update \ 
+	magic-update \
 	host-update
 
 all:
