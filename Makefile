@@ -8,15 +8,8 @@ name:='jaeh.at'
 #node_env
 env:='production'
 
-.PHONY: browserify build dev kill run restart re logs \
+.PHONY: build dev kill run restart re logs \
 	clearContainers clearImages \
-
-browserify:
-	cd ./server/hosts/jaeh.at/public/ \
-	&& browserify --ignore-missing ./js/bundle/index.js > ./js/main.js
-	cd ./server/hosts/staging.oliverjiszda.com/public/ \
-	&& browserify --ignore-missing ./js/bundle/index.js > ./js/main.js
-
 
 build:
 	docker build -t magic/base ./dockerbase/
@@ -25,7 +18,7 @@ build:
 	sed -i 's/|xport|/${xport}/g' ./Dockerfile
 	docker build -t $(tag) --no-cache .
 
-dev: browserify
+dev:
 	docker build -t magic/base ./dockerbase/
 	cp -f ./Dockerfile.tmpl ./Dockerfile
 	sed -i 's/|env|/development/g' ./Dockerfile
