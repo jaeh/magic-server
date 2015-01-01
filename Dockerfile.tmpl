@@ -2,11 +2,13 @@ FROM magic/base
 
 CMD cd ./server; npm install
 
-CMD npm install -g browserify
-CMD cd ./server/hosts/jaeh.at/public/js; browserify ./bundle/index.js > ./main.js
-CMD cd ./server/hosts/staging.oliverjiszda.com/public/js; browserify ./bundle/index.js > ./main.js
 
 ADD ./server /srv
+
+RUN cd /srv/hosts/jaeh.at/public/js; \
+  browserify bundle/index.js > main.js && \
+  cd /srv/hosts/staging.oliverjiszda.com/public/js; \
+  browserify bundle/index.js > main.js
 
 EXPOSE |xport|
 CMD cd /srv; NODE_ENV=|env| supervisor --harmony --extensions "node,js,jade,styl" app.js
