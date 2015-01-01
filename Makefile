@@ -10,6 +10,10 @@ env:='production'
 
 .PHONY: build dev kill run restart re logs \
 	clearContainers clearImages \
+	install update \
+	magic-install magic-update \
+	host-install host-update host-remove \
+	updateAll
 
 build:
 	docker build -t magic/base ./dockerbase/
