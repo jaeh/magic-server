@@ -4,9 +4,9 @@ CMD cd ./server; npm install
 
 CMD npm install -g browserify
 CMD cd ./server/hosts/jaeh.at/public/js; \
-    browserify --ignore-missing ./bundle/index.js > ./main.js
+browserify --ignore-missing ./bundle/index.js > ./main.js
 CMD cd ./server/hosts/staging.oliverjiszda.com/public/js; \
-    browserify --ignore-missing ./bundle/index.js > ./main.js
+browserify --ignore-missing ./bundle/index.js > ./main.js
 
 ADD ./server /srv
 
