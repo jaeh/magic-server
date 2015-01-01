@@ -80,6 +80,12 @@ host-remove:
 	rm ./server/hosts/oliverjiszda.com -rf
 	rm ./server/hosts/staging.oliverjiszda.com -rf
 
+host-status:
+	cd ./server/hosts/jaeh.at && git status
+	cd ./server/hosts/staging.oliverjiszda.com && git status
+	cd ./server/hosts/oliverjiszda.com && git status
+	cd ./server/hosts/bwb.is && git status
+
 updateAll: \
 	update \
 	magic-update \
