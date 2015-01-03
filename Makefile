@@ -51,10 +51,9 @@ clearImages:
 	docker rmi $(shell docker images -q)
 
 install:
-	npm install
-
-update:
-	git pull
+	su -c 'apt-get update && \
+	apt-get install docker.io && \
+	source /etc/bash_completion.d/docker.io'
 
 magic-install:
 	cd ./server/ && npm install
