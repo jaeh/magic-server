@@ -8,26 +8,34 @@ name:='jaeh.at'
 #node_env
 env:='production'
 
-.PHONY: build dev kill run restart re logs \
+.PHONY: base build dev dev-force kill run restart re logs \
 	clearContainers clearImages \
 	install update \
 	magic-install magic-update \
 	host-install host-update host-remove \
 	updateAll
 
-build:
+base:
 	docker build -t magic/base ./dockerbase/
+
+build:
 	cp -f ./Dockerfile.tmpl ./Dockerfile
 	sed -i 's/|env|/$(env)/g' ./Dockerfile
 	sed -i 's/|xport|/${xport}/g' ./Dockerfile
-	docker build -t $(tag) --no-cache .
+	docker build -t $(tag) .
 
 dev:
-	docker build -t magic/base ./dockerbase/
+	cp -f ./Dockerfile.tmpl ./Dockerfile
+	sed -i 's/|env|/development/g' ./Dockerfile
+	sed -i 's/|xport|/${xport}/g' ./Dockerfile
+	docker build -t $(tag) .
+
+dev-force:
 	cp -f ./Dockerfile.tmpl ./Dockerfile
 	sed -i 's/|env|/development/g' ./Dockerfile
 	sed -i 's/|xport|/${xport}/g' ./Dockerfile
 	docker build -t $(tag) --no-cache .
+
 
 kill:
 	docker kill $(name)
@@ -39,7 +47,7 @@ run:
 
 restart: kill run
 
-re: restart
+re: kill run
 
 logs:
 	docker logs $(name)
