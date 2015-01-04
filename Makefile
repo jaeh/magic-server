@@ -83,6 +83,9 @@ install:
 magic-install:
 	cd ./server/ && npm install
 
+update:
+	git pull
+
 magic-update:
 	cd ./server/ && npm update --save
 
@@ -114,6 +117,8 @@ updateAll: \
 	update \
 	magic-update \
 	host-update
+
+
 
 all:
 	build;
