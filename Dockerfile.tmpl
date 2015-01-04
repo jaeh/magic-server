@@ -1,9 +1,8 @@
 FROM magic/base
 
-CMD cd ./server; npm install
-
-
 ADD ./server /srv
+
+RUN cd /srv; npm install
 
 RUN cd /srv/hosts/jaeh.at/public/js; \
   browserify bundle/index.js > main.js && \
