@@ -8,7 +8,7 @@ name:='jaeh.at'
 #node_env
 env:='production'
 
-.PHONY: build-base build-db build dev dev-force kill run restart re logs \
+.PHONY: base-build db-build build dev dev-force kill run restart re logs \
 	db db-run db-restart db-re db-kill db-build \
 	clearContainers clearImages \
 	install update \
@@ -118,7 +118,4 @@ updateAll: \
 	magic-update \
 	host-update
 
-
-
-all:
-	build;
+all: build
