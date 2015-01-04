@@ -8,7 +8,8 @@ name:='jaeh.at'
 #node_env
 env:='production'
 
-.PHONY: base build dev dev-force kill run restart re logs \
+.PHONY: build-base build-db build dev dev-force kill run restart re logs \
+	db db-run db-restart db-re db-kill db-build \
 	clearContainers clearImages \
 	install update \
 	magic-install magic-update \
@@ -17,6 +18,22 @@ env:='production'
 
 base:
 	docker build -t magic/base ./dockerbase/
+
+base-build: base
+
+db:
+	docker build -t magic/db ./db/
+db-build: db
+
+db-kill:
+	docker kill db
+	docker rm db
+
+db-run:
+	docker run -p 8529:8529 --name db -d magic/db
+
+db-restart: db-kill db-run
+db-re: db-restart
 
 build:
 	cp -f ./Dockerfile.tmpl ./Dockerfile
@@ -43,7 +60,7 @@ kill:
 	rm -f ./Dockerfile
 
 run:
-	docker run -p $(xport):$(iport) --name=$(name) -d $(tag) 
+	docker run -p $(xport):$(iport) --name $(name) -d $(tag) --link db:db magic/db
 
 restart: kill run
 
