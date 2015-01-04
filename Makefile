@@ -60,7 +60,7 @@ kill:
 	rm -f ./Dockerfile
 
 run:
-	docker run -p $(xport):$(iport) --name $(name) -d $(tag) --link db:db magic/db
+	docker run -p $(xport):$(iport) --name $(name) -d $(tag) #--link db:db magic/db
 
 restart: kill run
 
