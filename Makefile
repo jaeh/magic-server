@@ -2,7 +2,7 @@
 xport:=80
 iport:=5000
 #docker image ID
-tag:='magic/express-magic'
+magictag:='magic/express-magic'
 hosttag:='magic/magic-hosts'
 basetag:='magic/base'
 #docker name
@@ -10,21 +10,19 @@ name:='jaeh.at'
 #node_env
 env:='production'
 
-.PHONY: base-build db-build build dev dev-force kill run restart re logs \
-	db db-run db-restart db-re db-kill db-build \
+.PHONY: \
+	build dev dev-force \
+	kill run restart re \
+	logs \
 	clearContainers clearImages \
 	install update \
-	magic-install magic-update \
-	host-install host-update host-remove hosts \
-	updateAll
+	magic-install
 
 base:
 	docker build -t $(basetag) ./dockerbase/
 
-base-build: base
-
 build:
-	docker build -t $(tag) ./server
+	docker build -t $(magictag) ./server
 
 hosts:
 	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
@@ -50,7 +48,7 @@ kill:
 	rm -f ./server/Dockerfile
 
 run:
-	docker run -p $(xport):$(iport) --name $(name) -d $(h)
+	docker run -p $(xport):$(iport) --name $(name) -d $(hosttag)
 
 restart: kill run
 
@@ -76,4 +74,6 @@ magic-install:
 update:
 	git pull
 
-all: build
+build-all: base build dev
+
+all: base build dev restart
