@@ -20,15 +20,19 @@ env:='production'
 
 base:
 	docker build -t $(basetag) ./dockerbase/
+basef:
+	docker build -t $(basetag) --no-cache ./dockerbase/
 
 build:
 	docker build -t $(magictag) ./server
+buildf:
+	docker build -t $(magictag) --no-cache ./server
 
 hosts:
 	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
 	sed -i 's/|env|/${env}/g' ./hosts/Dockerfile
 	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
-	docker build -t $(hosttag) --no-cache ./hosts
+	docker build -t $(hosttag) ./hosts
 
 dev:
 	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
@@ -45,7 +49,6 @@ dev-force:
 kill:
 	docker kill $(name)
 	docker rm $(name)
-	rm -f ./server/Dockerfile
 
 run:
 	docker run -p $(xport):$(iport) --name $(name) -d $(hosttag)
@@ -57,10 +60,10 @@ re: kill run
 logs:
 	docker logs $(name)
 
-clearContainers:
+rmContainers:
 	docker rm $(shell docker ps -a -q)
 
-clearImages:
+rmImages:
 	docker rmi $(shell docker images -q)
 
 install:
@@ -68,12 +71,9 @@ install:
 	apt-get install docker.io && \
 	source /etc/bash_completion.d/docker.io'
 
-magic-install:
-	cd ./server/ && npm install
-
 update:
 	git pull
 
-build-all: base build dev
-
-all: base build dev restart
+rebuild: base build dev restart
+rebuildf: basef buildf dev restart
+all: rebuild
