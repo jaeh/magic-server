@@ -2,7 +2,9 @@
 xport:=80
 iport:=5000
 #docker image ID
-tag:='jaeh/magic-server'
+tag:='magic/express-magic'
+hosttag:='magic/magic-hosts'
+basetag:='magic/base'
 #docker name
 name:='jaeh.at'
 #node_env
@@ -13,54 +15,42 @@ env:='production'
 	clearContainers clearImages \
 	install update \
 	magic-install magic-update \
-	host-install host-update host-remove \
+	host-install host-update host-remove hosts \
 	updateAll
 
 base:
-	docker build -t magic/base ./dockerbase/
+	docker build -t $(basetag) ./dockerbase/
 
 base-build: base
 
-db:
-	docker build -t magic/db ./db/
-db-build: db
-
-db-kill:
-	docker kill db
-	docker rm db
-
-db-run:
-	docker run -p 8529:8529 --name db -d magic/db
-
-db-restart: db-kill db-run
-db-re: db-restart
-
 build:
-	cp -f ./Dockerfile.tmpl ./Dockerfile
-	sed -i 's/|env|/$(env)/g' ./Dockerfile
-	sed -i 's/|xport|/${xport}/g' ./Dockerfile
-	docker build -t $(tag) .
+	docker build -t $(tag) ./server
+
+hosts:
+	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
+	sed -i 's/|env|/${env}/g' ./hosts/Dockerfile
+	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
+	docker build -t $(hosttag) --no-cache ./hosts
 
 dev:
-	cp -f ./Dockerfile.tmpl ./Dockerfile
-	sed -i 's/|env|/development/g' ./Dockerfile
-	sed -i 's/|xport|/${xport}/g' ./Dockerfile
-	docker build -t $(tag) .
+	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
+	sed -i 's/|env|/development/g' ./hosts/Dockerfile
+	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
+	docker build -t $(hosttag) ./hosts
 
 dev-force:
-	cp -f ./Dockerfile.tmpl ./Dockerfile
-	sed -i 's/|env|/development/g' ./Dockerfile
-	sed -i 's/|xport|/${xport}/g' ./Dockerfile
-	docker build -t $(tag) --no-cache .
-
+	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
+	sed -i 's/|env|/development/g' ./hosts/Dockerfile
+	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
+	docker build -t $(hosttag) --no-cache ./hosts
 
 kill:
 	docker kill $(name)
 	docker rm $(name)
-	rm -f ./Dockerfile
+	rm -f ./server/Dockerfile
 
 run:
-	docker run -p $(xport):$(iport) --name $(name) -d $(tag) #--link db:db magic/db
+	docker run -p $(xport):$(iport) --name $(name) -d $(h)
 
 restart: kill run
 
@@ -85,37 +75,5 @@ magic-install:
 
 update:
 	git pull
-
-magic-update:
-	cd ./server/ && npm update --save
-
-host-install:
-	git clone https://github.com/jaeh/jaeh.at.git ./server/hosts/jaeh.at
-	git clone https://github.com/jaeh/bwb.is.git ./server/hosts/bwb.is
-	git clone https://github.com/jaeh/oj.jaeh.at.git ./server/hosts/oliverjiszda.com
-	git clone https://github.com/jaeh/oj-staging.jaeh.at.git ./server/hosts/staging.oliverjiszda.com
-
-host-update:
-	cd ./server/hosts/jaeh.at/ && git pull
-	cd ./server/hosts/bwb.is/ && git pull
-	cd ./server/hosts/oliverjiszda.com/ && git pull
-	cd ./server/hosts/staging.oliverjiszda.com/ && git pull
-
-host-remove:
-	rm ./server/hosts/jaeh.at -rf
-	rm ./server/hosts/bwb.is -rf
-	rm ./server/hosts/oliverjiszda.com -rf
-	rm ./server/hosts/staging.oliverjiszda.com -rf
-
-host-status:
-	cd ./server/hosts/jaeh.at && git status
-	cd ./server/hosts/staging.oliverjiszda.com && git status
-	cd ./server/hosts/oliverjiszda.com && git status
-	cd ./server/hosts/bwb.is && git status
-
-updateAll: \
-	update \
-	magic-update \
-	host-update
 
 all: build
