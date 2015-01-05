@@ -40,7 +40,7 @@ dev:
 	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
 	docker build -t $(hosttag) ./hosts
 
-dev-force:
+devf:
 	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
 	sed -i 's/|env|/development/g' ./hosts/Dockerfile
 	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
