@@ -2,9 +2,9 @@
 xport:=80
 iport:=5000
 #docker image ID
-magictag:='magic/express-magic'
-hosttag:='magic/magic-hosts'
-basetag:='magic/base'
+magictag:='jascha/express-magic'
+hosttag:='jascha/magic-hosts'
+basetag:='jascha/magic-base'
 #docker name
 name:='jaeh.at'
 #node_env
@@ -54,8 +54,7 @@ run:
 	docker run \
 	-p $(xport):$(iport) \
 	--name $(name) \
-	-d $(hosttag) \
-	-v /dev/urandom:/dev/random
+	-d $(hosttag)
 
 restart: kill run
 
