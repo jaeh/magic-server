@@ -51,7 +51,11 @@ kill:
 	docker rm $(name)
 
 run:
-	docker run -p $(xport):$(iport) --name $(name) -d $(hosttag)
+	docker run \
+	-p $(xport):$(iport) \
+	--name $(name) \
+	-d $(hosttag) \
+	-v /dev/urandom:/dev/random
 
 restart: kill run
 
