@@ -1,4 +1,4 @@
-FROM magic/base
+FROM jascha/magic-base
 
 ADD ./ /srv
 
