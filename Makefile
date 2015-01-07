@@ -77,6 +77,8 @@ install:
 update:
 	git pull
 
+prepare: base build dev run
+
 rebuild: base build dev restart
 rebuildf: basef buildf dev restart
 all: rebuild
