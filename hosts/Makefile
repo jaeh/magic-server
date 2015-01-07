@@ -1,10 +1,15 @@
 git=https://github.com/jaeh/
-
-install:
+clone:
 	git clone $(git)jaeh.at.git ./jaeh.at
 	git clone $(git)bwb.is.git ./bwb.is
 	git clone $(git)oj.jaeh.at.git ./oliverjiszda.com
-	git clone $(git)oj-staging.jaeh.at.git ./staging.oliverjiszda.com
+	git clone $(git)oj-staging.jaeh.at.git ./staging.oliverjiszda.com 
+
+pull:
+	cd ./jaeh.at/ && git pull
+	cd ./bwb.is/ && git pull
+	cd ./oliverjiszda.com/ && git pull
+	cd ./staging.oliverjiszda.com/ && git pull
 
 npm:
 	cd ./jaeh.at && npm install
@@ -12,11 +17,9 @@ npm:
 	cd ./oliverjiszda.com && npm install
 	cd ./staging.oliverjiszda.com && npm install
 
-update:
-	cd ./jaeh.at/ && git pull
-	cd ./bwb.is/ && git pull
-	cd ./oliverjiszda.com/ && git pull
-	cd ./staging.oliverjiszda.com/ && git pull
+install: clone npm
+
+update: pull npm
 
 clean:
 	rm ./jaeh.at -rf
