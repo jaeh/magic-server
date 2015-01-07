@@ -6,6 +6,12 @@ install:
 	git clone $(git)oj.jaeh.at.git ./oliverjiszda.com
 	git clone $(git)oj-staging.jaeh.at.git ./staging.oliverjiszda.com
 
+npm:
+	cd ./jaeh.at && npm install
+	cd ./bwb.is && npm install
+	cd ./oliverjiszda.com && npm install
+	cd ./staging.oliverjiszda.com && npm install
+
 update:
 	cd ./jaeh.at/ && git pull
 	cd ./bwb.is/ && git pull
