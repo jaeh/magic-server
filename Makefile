@@ -56,9 +56,20 @@ run:
 	--name $(name) \
 	-d $(hosttag)
 
-restart: kill run
 
+drun: dev run
+drunf: devf run
+
+restart: kill run
 re: kill run
+devrestart: dev kill run
+devre: devrestart
+dr: devrestart
+de: devrestart
+
+devrestartf: devf kill run
+devref: devrestartf
+drf: devrestartf
 
 logs:
 	docker logs $(name)
@@ -76,8 +87,6 @@ install:
 
 update:
 	git pull
-
-prepare: base build dev run
 
 rebuild: base build dev restart
 rebuildf: basef buildf dev restart
