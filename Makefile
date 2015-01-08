@@ -11,12 +11,21 @@ name:='jaeh.at'
 env:='production'
 
 .PHONY: \
-	build dev dev-force \
-	kill run restart re \
-	logs \
-	clearContainers clearImages \
-	install update \
-	magic-install
+base basef \
+build buildf \
+hosts \
+dev devf \
+kill \
+run drun drunf \
+restart re \
+devrestart devre dr de \
+devrestartf devref drf \
+logs \
+rmContainers rmImages \
+install \
+update \
+rebuild rebuildf \
+all
 
 base:
 	docker build -t $(basetag) ./dockerbase/
