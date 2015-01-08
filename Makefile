@@ -100,3 +100,7 @@ update:
 rebuild: base build dev restart
 rebuildf: basef buildf dev restart
 all: rebuild
+
+
+cache:
+	node --harmony ./server/node_modules/magic-cache/cache.js
