@@ -13,5 +13,4 @@ RUN apt-get install -y \
   git \
   nodejs
 
-RUN npm i -g supervisor
-RUN npm i -g browserify
+RUN npm i -g supervisor browserify zelda
