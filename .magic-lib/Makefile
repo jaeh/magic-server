@@ -26,7 +26,7 @@ zelda:
 	cd ./express-magic && zelda ../
 	cd ./express-magic && zelda ../
 	cd ./express-magic && zelda ../
-	cd ./magic-errorhandler && zelda ../
+	cd ./magic-errorHandler && zelda ../
 	cd ./magic-headers && zelda ../
 	cd ./magic-hosts && zelda ../
 	cd ./magic-log && zelda ../
