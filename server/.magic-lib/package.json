@@ -4,7 +4,6 @@
   "description": "",
   "private": true,
   "dependencies": {
-    "async": "^0.9.0",
     "express": "^4.10.7",
     "express-magic": "git://github.com/express-magic/express-magic",
     "magic-blog": "git://github.com/express-magic/magic-blog",
