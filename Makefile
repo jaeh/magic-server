@@ -25,6 +25,7 @@ rmContainers rmImages \
 install \
 update \
 rebuild rebuildf \
+cache \
 all
 
 base:
