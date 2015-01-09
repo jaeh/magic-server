@@ -1,6 +1,6 @@
-git:=https://github.com/express-magic/
+git:=express-magic/
 
-repositories:=\
+repositories=\
 express-magic \
 magic-blog \
 magic-cache \
@@ -12,46 +12,29 @@ magic-mail \
 magic-router \
 magic-skeleton \
 magic-utils \
-magic-view \
+magic-view 
 
 .PHONY: \
-clone \
-zelda \
 install \
-update \
 pull \
-status \
-rm
+link \
+rm \
+build
 
-
-clone:
-	for repo in $(repositories) ; do \
-		git clone $(git)$$repo; \
-	done
-
-zelda:
-	for repo in $(repositories) ; do \
-		cd ./$$repo && zelda ../; \
-	done
-
-install: clone zelda
+install:
+	npm install
 
 pull:
-	for repo in $(repositories) ; do \
-		cd ./$$repo && git pull; \
+	for repo in $(shell ls -d node_modules/*) ; do \
+		(cd ./$$repo; git pull); \
 	done
 
-
-status:
-	for repo in $(repositories) ; do \
-		cd ./$$repo && git status; \
+link:
+	for repo in $(shell ls -d node_modules/*) ; do \
+		(cd ./$$repo; sudo npm link); \
 	done
 
 rm:
-	for repo in $(repositories) ; do \
-		rm ./$$repo -rf; \
-	done
+	sudo rm ./node_modules -rf
 
-update: pull zelda
-
-all: status
+build: install link
