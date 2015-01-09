@@ -1,5 +1,10 @@
 FROM jascha/express-magic
 
+RUN cd /srv; \
+    npm install \
+    /srv/.magic-lib/node_modules/express-magic \
+    /srv/.magic-lib/node_modules/magic-cache
+
 ADD ./ /srv/hosts
 
 RUN \
