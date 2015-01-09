@@ -5,7 +5,8 @@
   "dependencies": {
     "express": "^4.10.6",
     "express-magic": "git://github.com/express-magic/express-magic",
-    "jade": "^1.8.2"
+    "jade": "^1.8.2",
+    "magic-cache": "git://github.com/express-magic/magic-cache"
   },
   "repository": {
     "type": "git",
