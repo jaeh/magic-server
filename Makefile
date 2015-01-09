@@ -82,7 +82,10 @@ devref: devrestartf
 drf: devrestartf
 
 logs:
-	docker logs $(name)
+	docker logs -f $(name)
+
+port:
+	docker port $(name) $(iport)
 
 rmContainers:
 	docker rm $(shell docker ps -a -q)
