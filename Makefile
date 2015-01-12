@@ -2,13 +2,13 @@
 xport:=80
 iport:=5000
 #docker image ID
-magictag:='jascha/express-magic'
-hosttag:='jascha/magic-hosts'
-basetag:='jascha/magic-base'
+magictag:=jascha/express-magic
+hosttag:=jascha/magic-hosts
+basetag:=jascha/magic-base
 #docker name
-name:='jaeh.at'
+name:=jaeh.at
 #node_env
-env:='production'
+env:=production
 
 .PHONY: \
 base basef \
