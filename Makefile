@@ -43,18 +43,21 @@ hosts:
 	sed -i 's/|env|/${env}/g' ./hosts/Dockerfile
 	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
 	docker build -t $(hosttag) ./hosts
+	rm ./hosts/Dockerfile  
 
 dev:
 	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
 	sed -i 's/|env|/development/g' ./hosts/Dockerfile
 	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
 	docker build -t $(hosttag) ./hosts
+	rm ./hosts/Dockerfile  
 
 devf:
 	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
 	sed -i 's/|env|/development/g' ./hosts/Dockerfile
 	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
 	docker build -t $(hosttag) --no-cache ./hosts
+	rm ./hosts/Dockerfile  
 
 kill:
 	docker kill $(name)
