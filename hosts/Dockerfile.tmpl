@@ -11,7 +11,10 @@ RUN \
   cd /srv/hosts/jaeh.at/public/js; \
   browserify bundle/index.js > main.js && \
   cd /srv/hosts/staging.oliverjiszda.com/public/js; \
+  browserify bundle/index.js > main.js && \
+  cd /srv/hosts/staging.minotme.com/public/js; \
   browserify bundle/index.js > main.js
+  
 
 
 RUN cd /srv; node --harmony /srv/node_modules/magic-cache/cache.js
