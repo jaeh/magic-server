@@ -1,12 +1,12 @@
 {
-  "name": "magic-server-jaeh",
+  "name": "magic-server",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "^4.10.6",
-    "express-magic": "git://github.com/express-magic/express-magic",
-    "jade": "^1.8.2",
-    "magic-cache": "git://github.com/express-magic/magic-cache"
+    "express": "file:/node_modules/express",
+    "jade": "file:/node_modules/jade",
+    "express-magic": "file:/magic-lib/express-magic",
+    "magic-cache": "file:/magic-lib/magic-cache"
   },
   "repository": {
     "type": "git",

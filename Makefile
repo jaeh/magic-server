@@ -28,15 +28,64 @@ rebuild rebuildf \
 cache \
 all
 
-base:
-	docker build -t $(basetag) ./dockerbase/
-basef:
-	docker build -t $(basetag) --no-cache ./dockerbase/
+clone:
+	git clone https://github.com/express-magic/express-magic ./magic-lib/express-magic
+	git clone https://github.com/express-magic/magic-blog ./magic-lib/magic-blog
+	git clone https://github.com/express-magic/magic-cache ./magic-lib/magic-cache
+	git clone https://github.com/express-magic/magic-errorHandler ./magic-lib/magic-errorHandler
+	git clone https://github.com/express-magic/magic-headers ./magic-lib/magic-headers
+	git clone https://github.com/express-magic/magic-hosts ./magic-lib/magic-hosts
+	git clone https://github.com/express-magic/magic-log ./magic-lib/magic-log
+	git clone https://github.com/express-magic/magic-mail ./magic-lib/magic-mail
+	git clone https://github.com/express-magic/magic-router ./magic-lib/magic-router
+	git clone https://github.com/express-magic/magic-skeleton ./magic-lib/magic-skeleton
+	git clone https://github.com/express-magic/magic-utils ./magic-lib/magic-utils
+	git clone https://github.com/express-magic/magic-view ./magic-lib/magic-view
 
-build:
-	docker build -t $(magictag) ./server
-buildf:
-	docker build -t $(magictag) --no-cache ./server
+#install modules from npm
+node_modules:
+	npm install \
+		async \
+		bash-color \
+		express \
+		jade \
+		body-parser \
+		compression \
+		cookie-parser \
+		morgan \
+		nib \
+		node-basicauth \
+		serve-favicon \
+		vhost \
+		nodemailer \
+		nodemailer-smtp-transport \
+		bash-color \
+		stylus
+
+npm:
+	cd ./magic-lib/magic-log; npm install
+	cd ./magic-lib/magic-cache; npm install
+	cd ./magic-lib/magic-blog; npm install
+	cd ./magic-lib/magic-errorHandler; npm install
+	cd ./magic-lib/magic-headers; npm install
+	cd ./magic-lib/magic-mail; npm install
+	cd ./magic-lib/magic-router; npm install
+	cd ./magic-lib/magic-skeleton; npm install
+	cd ./magic-lib/magic-utils; npm install
+	cd ./magic-lib/magic-view; npm install
+	cd ./magic-lib/magic-hosts; npm install
+	cd ./magic-lib/express-magic; npm install
+
+clean:
+	rm ./magic-lib -rf
+	rm ./node_modules -rf
+
+prepare: clean clone node_modules npm
+
+base:
+	docker build -t $(basetag) .
+basef:
+	docker build -t $(basetag) --no-cache .
 
 hosts:
 	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
@@ -69,20 +118,10 @@ run:
 	--name $(name) \
 	-d $(hosttag)
 
-
-drun: dev run
-drunf: devf run
-
 restart: kill run
-re: kill run
+re: restart
 devrestart: dev kill run
-devre: devrestart
 dr: devrestart
-de: devrestart
-
-devrestartf: devf kill run
-devref: devrestartf
-drf: devrestartf
 
 logs:
 	docker logs -f $(name)

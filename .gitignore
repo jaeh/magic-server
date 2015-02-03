@@ -1,2 +1,4 @@
 npm-debug.log
 .cache
+node_modules
+magic-lib
