@@ -1,4 +1,4 @@
-FROM ubuntu:14.10
+FROM ubuntu:latest
 
 RUN apt-get install -y \
   software-properties-common
@@ -21,4 +21,4 @@ ADD ./magic-lib /magic-lib
 ADD ./node_modules /node_modules
 
 ADD ./server /srv
-RUN cd /srv; npm install --unsafe-perm
+#RUN cd /srv; rm node_modules -rf; npm install --unsafe-perm
