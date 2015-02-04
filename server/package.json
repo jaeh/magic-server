@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "file:/node_modules/express",
-    "jade": "file:/node_modules/jade",
-    "express-magic": "file:/magic-lib/express-magic",
-    "magic-cache": "file:/magic-lib/magic-cache"
+    "express": "../node_modules/express",
+    "express-magic": "file:../magic-lib/express-magic",
+    "jade": "../node_modules/jade",
+    "magic-cache": "file:../magic-lib/magic-cache"
   },
   "repository": {
     "type": "git",
