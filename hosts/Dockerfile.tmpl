@@ -2,13 +2,11 @@ FROM jascha/magic-base
 
 ADD ./ /srv/hosts
 
-RUN \
-  cd /srv/hosts/jaeh.at/public/js; \
-  browserify bundle/index.js > main.js && \
-  cd /srv/hosts/staging.oliverjiszda.com/public/js; \
-  browserify bundle/index.js > main.js && \
-  cd /srv/hosts/staging.minotme.com/public/js; \
-  browserify bundle/index.js > main.js
+RUN cd /srv/hosts; ./babelify.sh
 
 EXPOSE |xport|
-CMD cd /srv; NODE_ENV=|env| supervisor --harmony --extensions "node,js,jade,styl" app.js
+
+RUN cd /srv; babel src/ --out-file app.js --source-maps
+
+CMD cd /srv; NODE_ENV=|env| supervisor --harmony --extensions "js,jade,styl" \
+    --exec babel-node --experimental --ignore='node_modules' -- app.js
