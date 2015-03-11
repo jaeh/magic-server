@@ -13,7 +13,7 @@ RUN apt-get install -y \
   git \
   nodejs
 
-RUN npm install -g supervisor browserify linify
+RUN npm install -g supervisor browserify linify babelify babel
 
 RUN npm update -g npm
 
@@ -21,4 +21,5 @@ ADD ./magic-lib /magic-lib
 ADD ./node_modules /node_modules
 
 ADD ./server /srv
-#RUN cd /srv; rm node_modules -rf; npm install --unsafe-perm
+
+RUN cd /srv; rm node_modules/express-magic -r; npm i --unsafe-perm
