@@ -5,8 +5,10 @@ iport:=5000
 magictag:=jascha/express-magic
 hosttag:=jascha/magic-hosts
 basetag:=jascha/magic-base
+dbtag:=jascha/magic-db
 #docker name
 name:=jaeh.at
+dbname:=magic-db
 #node_env
 env:=production
 
@@ -95,6 +97,7 @@ hosts:
 	rm ./hosts/Dockerfile  
 
 dev:
+#~ 	node --harmony ./magic-lib/magic-cache/cache.js
 	cp -f ./hosts/Dockerfile.tmpl ./hosts/Dockerfile
 	sed -i 's/|env|/development/g' ./hosts/Dockerfile
 	sed -i 's/|xport|/${xport}/g' ./hosts/Dockerfile
@@ -115,16 +118,18 @@ kill:
 run:
 	docker run \
 	-p $(xport):$(iport) \
+	-v /srv/magic/magic-db:/magic-db \
 	--name $(name) \
 	-d $(hosttag)
 
-restart: kill run
-re: restart
-devrestart: dev kill run
-dr: devrestart
-
 logs:
 	docker logs -f $(name)
+
+restart: kill run
+re: restart
+devrestart: dev kill run logs
+dr: devrestart
+
 
 port:
 	docker port $(name) $(iport)
@@ -143,8 +148,8 @@ install:
 update:
 	git pull
 
-rebuild: base build dev restart
-rebuildf: basef buildf dev restart
+rebuild: base dev restart
+rebuildf: basef dev restart
 all: rebuild
 
 cache:
